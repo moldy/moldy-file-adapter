@@ -1,0 +1,36 @@
+{
+	"name": "moldy-adapter-fs",
+	"version": "0.0.1",
+	"description": "",
+	"main": "src/index.js",
+	"scripts": {
+		"test": "mocha test/readme.js",
+		"posttest": "mocha test/readme.js -R markdown > README.md"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/davidtsuji/moldy-adapter-fs"
+	},
+	"author": "David Tsuji",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/davidtsuji/moldy-adapter-fs/issues"
+	},
+	"homepage": "https://github.com/davidtsuji/moldy-adapter-fs",
+	"devDependencies": {
+		"mocha": "^1.18.2",
+		"should": "^3.1.4",
+		"gulp": "^3.5.6",
+		"gulp-shell": "^0.2.4",
+		"underscore": "^1.6.0",
+		"moldy": "0.0.10"
+	},
+	"dependencies": {
+		"sc-is": "0.0.3",
+		"sc-haskey": "0.0.2",
+		"sc-cast": "0.0.4",
+		"file-db": "0.0.2",
+		"underscore": "^1.6.0",
+		"fs-extra": "^0.8.1"
+	}
+}
