@@ -1,5 +1,5 @@
 {
-	"name": "moldy-adapter-fs",
+	"name": "moldy-file-adapter",
 	"version": "0.0.1",
 	"description": "",
 	"main": "src/index.js",
@@ -9,14 +9,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/davidtsuji/moldy-adapter-fs"
+		"url": "https://github.com/davidtsuji/moldy-file-adapter"
 	},
 	"author": "David Tsuji",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/davidtsuji/moldy-adapter-fs/issues"
+		"url": "https://github.com/davidtsuji/moldy-file-adapter/issues"
 	},
-	"homepage": "https://github.com/davidtsuji/moldy-adapter-fs",
+	"homepage": "https://github.com/davidtsuji/moldy-file-adapter",
 	"devDependencies": {
 		"mocha": "^1.18.2",
 		"should": "^3.1.4",
