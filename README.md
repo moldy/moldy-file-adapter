@@ -12,7 +12,7 @@
 Tell `Moldy` to use the `file` adapter.
 
 ```js
-// Moldy.use( 'adapter', require('moldy-file-adapter') );
+// Moldy.use( require('moldy-file-adapter') );
 ```
 
 <a name="moldy-file-adapter-create"></a>

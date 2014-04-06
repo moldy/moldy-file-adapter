@@ -7,7 +7,7 @@ Moldy.use(require('../src'));
 describe('moldy-file-adapter', function () {
 
 	it('Tell `Moldy` to use the `file` adapter', function () {
-		// Moldy.use( 'adapter', require('moldy-file-adapter') );
+		// Moldy.use( require('moldy-file-adapter') );
 	});
 
 	require('./readme/create');
