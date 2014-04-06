@@ -23,7 +23,7 @@
 		"gulp": "^3.5.6",
 		"gulp-shell": "^0.2.4",
 		"underscore": "^1.6.0",
-		"moldy": "0.0.10"
+		"moldy": "0.0.22"
 	},
 	"dependencies": {
 		"sc-is": "0.0.3",
