@@ -23,7 +23,9 @@
     "gulp": "^3.5.6",
     "gulp-shell": "^0.2.4",
     "underscore": "^1.6.0",
-    "moldy": "0.0.22"
+    "moldy": "0.0.22",
+    "gulp-jshint": "^1.5.3",
+    "jshint-stylish": "^0.1.5"
   },
   "dependencies": {
     "sc-is": "0.0.3",
