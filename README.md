@@ -1,21 +1,21 @@
 # TOC
-   - [moldy-adapter-file](#moldy-adapter-file)
-     - [create](#moldy-adapter-file-create)
-     - [get](#moldy-adapter-file-get)
-     - [collection](#moldy-adapter-file-collection)
-     - [save](#moldy-adapter-file-save)
-     - [destroy](#moldy-adapter-file-destroy)
+   - [moldy-file-adapter](#moldy-file-adapter)
+     - [create](#moldy-file-adapter-create)
+     - [get](#moldy-file-adapter-get)
+     - [collection](#moldy-file-adapter-collection)
+     - [save](#moldy-file-adapter-save)
+     - [destroy](#moldy-file-adapter-destroy)
 <a name=""></a>
  
-<a name="moldy-adapter-file"></a>
-# moldy-adapter-file
+<a name="moldy-file-adapter"></a>
+# moldy-file-adapter
 Tell `Moldy` to use the `file` adapter.
 
 ```js
-// Moldy.use( 'adapter', moldyAdapterAjax );
+// Moldy.use( 'adapter', require('moldy-file-adapter') );
 ```
 
-<a name="moldy-adapter-file-create"></a>
+<a name="moldy-file-adapter-create"></a>
 ## create
 should `create` by a property.
 
@@ -27,16 +27,16 @@ var personMoldy = new Moldy('person', {
 	}
 });
 personMoldy.name = 'David';
-personMoldy.$save(function (_error, _david) {
+personMoldy.$save(function (_error) {
 	if (_error) {
 		return _done(_error);
 	}
-	_david.name.should.eql('David');
+	personMoldy.name.should.eql('David');
 	_done();
 });
 ```
 
-<a name="moldy-adapter-file-get"></a>
+<a name="moldy-file-adapter-get"></a>
 ## get
 should create a new person so we can `get` it next.
 
@@ -64,7 +64,7 @@ personMoldy.$get({
 });
 ```
 
-<a name="moldy-adapter-file-collection"></a>
+<a name="moldy-file-adapter-collection"></a>
 ## collection
 should `get` a `collection`.
 
@@ -92,7 +92,7 @@ personMoldy.$collection(function (_error, _people) {
 });
 ```
 
-<a name="moldy-adapter-file-save"></a>
+<a name="moldy-file-adapter-save"></a>
 ## save
 should `save` a model.
 
@@ -129,7 +129,7 @@ personMoldy.$get(function (_error, _guy) {
 });
 ```
 
-<a name="moldy-adapter-file-destroy"></a>
+<a name="moldy-file-adapter-destroy"></a>
 ## destroy
 should `destroy` all the models.
 

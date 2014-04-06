@@ -13,13 +13,13 @@ describe('create', function () {
 
 		personMoldy.name = 'David';
 
-		personMoldy.$save(function (_error, _david) {
+		personMoldy.$save(function (_error) {
 
 			if (_error) {
 				return _done(_error);
 			}
 
-			_david.name.should.eql('David');
+			personMoldy.name.should.eql('David');
 			_done();
 
 		});
