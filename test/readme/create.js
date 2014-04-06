@@ -15,12 +15,8 @@ describe('create', function () {
 
 		personMoldy.$save(function (_error) {
 
-			if (_error) {
-				return _done(_error);
-			}
-
 			personMoldy.name.should.eql('David');
-			_done();
+			_done(_error);
 
 		});
 	});

@@ -28,16 +28,23 @@ var personMoldy = new Moldy('person', {
 });
 personMoldy.name = 'David';
 personMoldy.$save(function (_error) {
-	if (_error) {
-		return _done(_error);
-	}
 	personMoldy.name.should.eql('David');
-	_done();
+	_done(_error);
 });
 ```
 
 <a name="moldy-file-adapter-get"></a>
 ## get
+define a JSON schema.
+
+```js
+schema = {
+	properties: {
+		name: 'string'
+	}
+};
+```
+
 should create a new person so we can `get` it next.
 
 ```js
@@ -49,7 +56,7 @@ personMoldy.$save(function (_error) {
 });
 ```
 
-should `get` by a property.
+should `get` by a `id` from the previous example.
 
 ```js
 var personMoldy = new Moldy('person', schema);
@@ -71,8 +78,8 @@ should `get` a `collection`.
 ```js
 var personMoldy = new Moldy('person', {
 	properties: {
-		name: '',
-		age: ''
+		name: 'string',
+		age: 'number'
 	}
 });
 personMoldy.$collection(function (_error, _people) {
@@ -99,17 +106,17 @@ should `save` a model.
 ```js
 var personMoldy = new Moldy('person', {
 	properties: {
-		name: '',
-		age: ''
+		name: 'string',
+		age: 'number'
 	}
 });
-personMoldy.$get(function (_error, _guy) {
+personMoldy.$get(function (_error) {
 	if (_error) {
 		return _done(_error);
 	}
-	key = _guy.id;
-	_guy.name = 'Mr David';
-	_guy.$save(function (_error, _res) {
+	key = personMoldy.id;
+	personMoldy.name = 'Mr David';
+	personMoldy.$save(function (_error) {
 		if (_error) {
 			return _done(_error);
 		}
@@ -131,6 +138,16 @@ personMoldy.$get(function (_error, _guy) {
 
 <a name="moldy-file-adapter-destroy"></a>
 ## destroy
+define a JSON schema.
+
+```js
+schema = {
+	properties: {
+		name: 'string'
+	}
+};
+```
+
 should `destroy` all the models.
 
 ```js

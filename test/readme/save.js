@@ -7,21 +7,21 @@ describe('save', function () {
 	it('should `save` a model', function (_done) {
 		var personMoldy = new Moldy('person', {
 			properties: {
-				name: '',
-				age: ''
+				name: 'string',
+				age: 'number'
 			}
 		});
 
-		personMoldy.$get(function (_error, _guy) {
+		personMoldy.$get(function (_error) {
 
 			if (_error) {
 				return _done(_error);
 			}
 
-			key = _guy.id;
-			_guy.name = 'Mr David';
+			key = personMoldy.id;
+			personMoldy.name = 'Mr David';
 
-			_guy.$save(function (_error, _res) {
+			personMoldy.$save(function (_error) {
 
 				if (_error) {
 					return _done(_error);

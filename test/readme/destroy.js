@@ -3,12 +3,15 @@ var Moldy = require('moldy'),
 
 describe('destroy', function () {
 	var guys,
+		schema;
+
+	it('define a JSON schema', function () {
 		schema = {
 			properties: {
-				name: 'string',
-				age: 'string'
+				name: 'string'
 			}
 		};
+	});
 
 	it('should `destroy` all the models', function (_done) {
 		var personMoldy = new Moldy('person', schema);

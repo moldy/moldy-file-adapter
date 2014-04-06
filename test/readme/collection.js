@@ -6,8 +6,8 @@ describe('collection', function () {
 	it('should `get` a `collection`', function (_done) {
 		var personMoldy = new Moldy('person', {
 			properties: {
-				name: '',
-				age: ''
+				name: 'string',
+				age: 'number'
 			}
 		});
 
