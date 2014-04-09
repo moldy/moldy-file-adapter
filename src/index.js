@@ -4,6 +4,8 @@ var cast = require('sc-cast'),
 	hasKey = require('sc-haskey'),
 	is = require('sc-is'),
 	_ = require('underscore'),
+	path = require('path'),
+	dbPath = '.tmp/moldy-db',
 	fdbKey = '_id';
 
 var swapKeys = function (_object, _oldKey, _newKey) {
@@ -20,7 +22,7 @@ module.exports = function (_model, _data, _method, _url, _callback) {
 		model = _model,
 		data = cast(_data, 'object', {});
 
-	fdb.open('.tmp/moldy-db', function (_error, _db) {
+	fdb.open(dbPath, function (_error, _db) {
 		var query = _db.use(model.__name);
 
 		switch (true) {
@@ -63,9 +65,10 @@ module.exports = function (_model, _data, _method, _url, _callback) {
 				});
 			break;
 		case (/delete/i.test(method)):
-			var error;
+			var error,
+				dbPathResolved = path.resolve(process.cwd(), dbPath, model.__name, model[model.__key]);
 
-			fs.remove(__dirname + '/../.tmp/moldy-db/' + model.__name + '/' + model[model.__key], function (_error) {
+			fs.remove(dbPathResolved, function (_error) {
 				_callback(error);
 			});
 
