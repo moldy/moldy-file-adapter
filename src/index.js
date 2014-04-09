@@ -41,6 +41,7 @@ module.exports = function (_model, _data, _method, _url, _callback) {
 				});
 			break;
 		case (/post/i.test(method)):
+			delete data[model.__key];
 			query
 				.save(data)
 				.exec(function (_error, _res) {
