@@ -8,7 +8,20 @@ describe('get', function () {
 	it('define a JSON schema', function () {
 		schema = {
 			properties: {
-				name: 'string'
+				name: 'string',
+				friends: [{
+					keyless: true,
+					properties: {
+						name: {
+							type: 'string',
+							default: ''
+						},
+						age: {
+							type: 'number',
+							default: 0
+						}
+					}
+				}]
 			}
 		};
 	});
@@ -17,6 +30,16 @@ describe('get', function () {
 		var personMoldy = new Moldy('person', schema);
 
 		personMoldy.name = 'Mr David';
+
+		personMoldy.friends.push({
+			name: 'leonie'
+		});
+
+		personMoldy.friends[0].age = ' 33';
+
+		personMoldy.friends.push({
+			name: 'max'
+		});
 
 		personMoldy.$save(function (_error) {
 			newPersonId = personMoldy.id;
@@ -27,6 +50,7 @@ describe('get', function () {
 	it('should `get` by a `id` from the previous example', function (_done) {
 		var personMoldy = new Moldy('person', schema);
 
+
 		personMoldy.$get({
 			id: newPersonId
 		}, function (_error, david) {
@@ -36,6 +60,11 @@ describe('get', function () {
 			}
 
 			david.name.should.eql('Mr David');
+			david.friends.should.be.an.Array.and.have.a.lengthOf(2);
+			david.friends[0].name.should.equal('leonie');
+			david.friends[0].age.should.equal(33);
+			david.friends[1].name.should.equal('max');
+			david.friends[1].age.should.equal(0);
 			david.$destroy(_done);
 
 		});

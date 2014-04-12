@@ -36,6 +36,18 @@ module.exports = function (_model, _data, _method, _url, _callback) {
 						_res = _.where(_res, data || {});
 						_res.forEach(function (_item) {
 							swapKeys(_item, fdbKey, model.__key);
+							Object.keys(_item).forEach(function (_key) {
+								if (is.an.array(model[_key])) {
+									var arrayItem = [];
+									Object.keys(_item[_key]).forEach(function (_i) {
+										var index = cast(_i, 'number', -1);
+										if (index >= 0) {
+											arrayItem.push(_item[_key][index]);
+										}
+									});
+									_item[_key] = arrayItem;
+								}
+							});
 						});
 					}
 
