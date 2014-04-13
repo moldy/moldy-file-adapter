@@ -1,39 +1,39 @@
 {
-  "name": "moldy-file-adapter",
-  "version": "0.0.10",
-  "description": "A file adapter for `Moldy`",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "mocha test/readme.js",
-    "posttest": "mocha test/readme.js -R markdown > README.md"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/moldy/moldy-file-adapter"
-  },
-  "author": "David Tsuji",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/moldy/moldy-file-adapter/issues"
-  },
-  "homepage": "https://github.com/moldy/moldy-file-adapter",
-  "devDependencies": {
-    "async": "^0.7.0",
-    "gulp": "^3.5.6",
-    "gulp-jshint": "^1.5.3",
-    "gulp-shell": "^0.2.4",
-    "jshint-stylish": "^0.1.5",
-    "mocha": "^1.18.2",
-    "moldy": "0.0.25",
-    "should": "^3.1.4",
-    "underscore": "^1.6.0"
-  },
-  "dependencies": {
-    "sc-is": "0.0.3",
-    "sc-haskey": "0.0.2",
-    "sc-cast": "0.0.4",
-    "file-db": "0.0.2",
-    "underscore": "^1.6.0",
-    "fs-extra": "^0.8.1"
-  }
+	"name": "moldy-file-adapter",
+	"version": "0.0.10",
+	"description": "A file adapter for `Moldy`",
+	"main": "src/index.js",
+	"scripts": {
+		"test": "mocha test/readme.js",
+		"posttest": "mocha test/readme.js -R markdown > README.md"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/moldy/moldy-file-adapter"
+	},
+	"author": "David Tsuji",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/moldy/moldy-file-adapter/issues"
+	},
+	"homepage": "https://github.com/moldy/moldy-file-adapter",
+	"devDependencies": {
+		"gulp": "^3.5.6",
+		"gulp-jshint": "^1.5.3",
+		"gulp-shell": "^0.2.4",
+		"jshint-stylish": "^0.1.5",
+		"mocha": "^1.18.2",
+		"moldy": "0.0.25",
+		"should": "^3.1.4",
+		"underscore": "^1.6.0"
+	},
+	"dependencies": {
+		"async": "^0.7.0",
+		"sc-is": "0.0.3",
+		"sc-haskey": "0.0.2",
+		"sc-cast": "0.0.4",
+		"file-db": "0.0.2",
+		"underscore": "^1.6.0",
+		"fs-extra": "^0.8.1"
+	}
 }
