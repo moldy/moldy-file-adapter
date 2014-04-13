@@ -1,4 +1,5 @@
-var cast = require('sc-cast'),
+var async = require('async'),
+	cast = require('sc-cast'),
 	fdb = require('file-db'),
 	fs = require('fs-extra'),
 	hasKey = require('sc-haskey'),
@@ -67,14 +68,39 @@ module.exports = function (_model, _data, _method, _url, _callback) {
 			break;
 		case (/put/i.test(method)):
 			swapKeys(data, model.__key, fdbKey);
-			query
-				.save(data)
-				.exec(function (_error, _res) {
-					if (!_error) {
-						swapKeys(_res, fdbKey, model.__key);
-					}
-					_callback(_error, _res);
+
+			var q = async.queue(function (_folderToRemove, _callback) {
+				fs.remove(_folderToRemove, function () {
+					_callback();
 				});
+			}, 5);
+
+			q.drain = function () {
+				query
+					.save(data)
+					.exec(function (_error, _res) {
+						if (!_error) {
+							swapKeys(_res, fdbKey, model.__key);
+						}
+						_callback(_error, _res);
+					});
+			}
+
+			var destroyObjectsOrArrays = function (_path, _data) {
+				var foundFolderToDestroy = false;
+				Object.keys(_data).forEach(function (_key) {
+					if (is.object(_data[_key]) || is.array(_data[_key])) {
+						q.push(_path + '/' + _key);
+						foundFolderToDestroy = true;
+					}
+				});
+				if (foundFolderToDestroy === false) {
+					q.drain();
+				}
+			};
+
+			destroyObjectsOrArrays(path.resolve(process.cwd(), dbPath, model.__name, model[model.__key]), data);
+
 			break;
 		case (/delete/i.test(method)):
 			var error,

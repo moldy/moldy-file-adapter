@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/moldy/moldy-file-adapter",
   "devDependencies": {
+    "async": "^0.7.0",
     "gulp": "^3.5.6",
     "gulp-jshint": "^1.5.3",
     "gulp-shell": "^0.2.4",
