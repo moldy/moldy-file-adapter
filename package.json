@@ -1,6 +1,6 @@
 {
   "name": "moldy-file-adapter",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A file adapter for `Moldy`",
   "main": "src/index.js",
   "scripts": {
