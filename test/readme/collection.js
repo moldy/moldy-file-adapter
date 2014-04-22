@@ -4,7 +4,7 @@ var Moldy = require('moldy'),
 describe('collection', function () {
 
 	it('should `get` a `collection`', function (_done) {
-		var personMoldy = new Moldy('person', {
+		var personMoldy = Moldy.create('person', {
 			properties: {
 				name: 'string',
 				age: 'number'

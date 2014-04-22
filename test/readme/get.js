@@ -27,7 +27,7 @@ describe('get', function () {
 	});
 
 	it('should create a new person so we can `get` it next', function (_done) {
-		var personMoldy = new Moldy('person', schema);
+		var personMoldy = Moldy.create('person', schema);
 
 		personMoldy.name = 'Mr David';
 
@@ -48,7 +48,7 @@ describe('get', function () {
 	});
 
 	it('should `get` by a `id` from the previous example', function (_done) {
-		var personMoldy = new Moldy('person', schema);
+		var personMoldy = Moldy.create('person', schema);
 
 
 		personMoldy.$get({

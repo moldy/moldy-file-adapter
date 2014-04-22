@@ -28,7 +28,7 @@ describe('save', function () {
 	});
 
 	it('should `save` a model', function (_done) {
-		var personMoldy = new Moldy('person', schema);
+		var personMoldy = Moldy.create('person', schema);
 
 		personMoldy.$get(function (_error) {
 
@@ -54,7 +54,7 @@ describe('save', function () {
 					return _done(_error);
 				}
 
-				var newPersonMoldy = new Moldy('person', schema);
+				var newPersonMoldy = Moldy.create('person', schema);
 
 				newPersonMoldy.$get({
 					id: key
@@ -68,7 +68,7 @@ describe('save', function () {
 							return _done(_error);
 						}
 
-						var newNewPersonMoldy = new Moldy('person', schema);
+						var newNewPersonMoldy = Moldy.create('person', schema);
 
 						newNewPersonMoldy.$get({
 							id: key

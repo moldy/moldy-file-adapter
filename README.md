@@ -20,7 +20,7 @@ Tell `Moldy` to use the `file` adapter.
 should `create` by a property.
 
 ```js
-var personMoldy = new Moldy('person', {
+var personMoldy = Moldy.create('person', {
 	properties: {
 		name: '',
 		age: ''
@@ -61,7 +61,7 @@ schema = {
 should create a new person so we can `get` it next.
 
 ```js
-var personMoldy = new Moldy('person', schema);
+var personMoldy = Moldy.create('person', schema);
 personMoldy.name = 'Mr David';
 personMoldy.friends.push({
 	name: 'leonie'
@@ -79,7 +79,7 @@ personMoldy.$save(function (_error) {
 should `get` by a `id` from the previous example.
 
 ```js
-var personMoldy = new Moldy('person', schema);
+var personMoldy = Moldy.create('person', schema);
 
 personMoldy.$get({
 	id: newPersonId
@@ -102,7 +102,7 @@ personMoldy.$get({
 should `get` a `collection`.
 
 ```js
-var personMoldy = new Moldy('person', {
+var personMoldy = Moldy.create('person', {
 	properties: {
 		name: 'string',
 		age: 'number'
@@ -154,7 +154,7 @@ schema = {
 should `save` a model.
 
 ```js
-var personMoldy = new Moldy('person', schema);
+var personMoldy = Moldy.create('person', schema);
 personMoldy.$get(function (_error) {
 	if (_error) {
 		return _done(_error);
@@ -174,7 +174,7 @@ personMoldy.$get(function (_error) {
 		if (_error) {
 			return _done(_error);
 		}
-		var newPersonMoldy = new Moldy('person', schema);
+		var newPersonMoldy = Moldy.create('person', schema);
 		newPersonMoldy.$get({
 			id: key
 		}, function (_error) {
@@ -184,7 +184,7 @@ personMoldy.$get(function (_error) {
 				if (_error) {
 					return _done(_error);
 				}
-				var newNewPersonMoldy = new Moldy('person', schema);
+				var newNewPersonMoldy = Moldy.create('person', schema);
 				newNewPersonMoldy.$get({
 					id: key
 				}, function (_error) {
@@ -213,7 +213,7 @@ schema = {
 should `destroy` all the models.
 
 ```js
-var personMoldy = new Moldy('person', schema);
+var personMoldy = Moldy.create('person', schema);
 personMoldy.$collection(function (_error, _guys) {
 	_guys.length.should.be.greaterThan(0);
 	var deleteGuy = function (_guy) {
@@ -221,7 +221,7 @@ personMoldy.$collection(function (_error, _guys) {
 			if (_guys.length === 0) {
 				return _done();
 			}
-			var guy = new Moldy('person', schema);
+			var guy = Moldy.create('person', schema);
 			guy.$get({
 				id: _guys[0].id
 			}, function (_error) {

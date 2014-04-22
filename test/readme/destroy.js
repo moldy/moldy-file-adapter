@@ -14,7 +14,7 @@ describe('destroy', function () {
 	});
 
 	it('should `destroy` all the models', function (_done) {
-		var personMoldy = new Moldy('person', schema);
+		var personMoldy = Moldy.create('person', schema);
 
 		personMoldy.$collection(function (_error, _guys) {
 
@@ -28,7 +28,7 @@ describe('destroy', function () {
 						return _done();
 					}
 
-					var guy = new Moldy('person', schema);
+					var guy = Moldy.create('person', schema);
 
 					guy.$get({
 						id: _guys[0].id

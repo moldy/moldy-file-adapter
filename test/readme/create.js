@@ -4,7 +4,7 @@ var Moldy = require('moldy'),
 describe('create', function () {
 
 	it('should `create` by a property', function (_done) {
-		var personMoldy = new Moldy('person', {
+		var personMoldy = Moldy.create('person', {
 			properties: {
 				name: '',
 				age: ''
