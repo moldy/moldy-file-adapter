@@ -12,7 +12,7 @@ describe('collection', function () {
 	});
 
 	it('should `get` a `collection`', function (_done) {
-		var personMoldy = new Moldy('person', {
+		var personMoldy = Moldy.extend('person', {
 			properties: {
 				name: 'string',
 				age: 'number'

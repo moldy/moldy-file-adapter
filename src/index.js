@@ -42,7 +42,7 @@ module.exports = function (_model, _data, _method, _url, _callback) {
 							if (is.empty(item)) return;
 							swapKeys(item, fdbKey, model.__key);
 							Object.keys(item).forEach(function (_key) {
-								if (is.an.array(model[_key])) {
+								if (hasKey(model, '__metadata.' + _key + '.value') && is.an.array(model.__metadata[_key].value)) {
 									var arrayItem = [];
 									Object.keys(item[_key]).forEach(function (_i) {
 										var index = cast(_i, 'number', -1);
@@ -104,12 +104,12 @@ module.exports = function (_model, _data, _method, _url, _callback) {
 				}
 			};
 
-			destroyObjectsOrArrays(path.resolve(process.cwd(), dbPath, model.__name, model[model.__key]), data);
+			destroyObjectsOrArrays(path.resolve(process.cwd(), dbPath, model.__name, data[fdbKey]), data);
 
 			break;
 		case (/delete/i.test(method)):
 			var error,
-				dbPathResolved = path.resolve(process.cwd(), dbPath, model.__name, model[model.__key]);
+				dbPathResolved = path.resolve(process.cwd(), dbPath, model.__name, data[model.__key]);
 
 			fs.remove(dbPathResolved, function (_error) {
 				_callback(error);

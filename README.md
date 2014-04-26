@@ -20,12 +20,12 @@ Tell `Moldy` to use the `file` adapter.
 should `create` by a property.
 
 ```js
-var personMoldy = new Moldy('person', {
+var personMoldy = Moldy.extend('person', {
 	properties: {
 		name: '',
 		age: ''
 	}
-});
+}).create();
 personMoldy.name = 'David';
 personMoldy.$save(function (_error) {
 	personMoldy.name.should.eql('David');
@@ -61,7 +61,7 @@ schema = {
 should create a new person so we can `get` it next.
 
 ```js
-var personMoldy = new Moldy('person', schema);
+var personMoldy = Moldy.extend('person', schema).create();
 personMoldy.name = 'Mr David';
 personMoldy.friends.push({
 	name: 'leonie'
@@ -79,14 +79,14 @@ personMoldy.$save(function (_error) {
 should `get` by a `id` from the previous example.
 
 ```js
-var personMoldy = new Moldy('person', schema);
-
+var personMoldy = Moldy.extend('person', schema);
 personMoldy.$get({
 	id: newPersonId
-}, function (_error, david) {
+}, function (_error, _david) {
 	if (_error) {
 		return _done(_error);
 	}
+	var david = _david[0];
 	david.name.should.eql('Mr David');
 	david.friends.should.be.an.Array.and.have.a.lengthOf(2);
 	david.friends[0].name.should.equal('leonie');
@@ -102,7 +102,7 @@ personMoldy.$get({
 should `get` a `collection`.
 
 ```js
-var personMoldy = new Moldy('person', {
+var personMoldy = Moldy.extend('person', {
 	properties: {
 		name: 'string',
 		age: 'number'
@@ -133,7 +133,10 @@ create a schema.
 schema = {
 	properties: {
 		name: 'string',
-		age: 'number',
+		age: {
+			type: 'number',
+			default: 0
+		},
 		friends: [{
 			keyless: true,
 			properties: {
@@ -154,42 +157,43 @@ schema = {
 should `save` a model.
 
 ```js
-var personMoldy = new Moldy('person', schema);
-personMoldy.$get(function (_error) {
+var personMoldy = Moldy.extend('person', schema);
+personMoldy.$get(function (_error, _person) {
 	if (_error) {
 		return _done(_error);
 	}
-	key = personMoldy.id;
-	personMoldy.name = 'Mr David';
-	personMoldy.friends.push({
+	var person = _person[0];
+	key = person.id;
+	person.name = 'Mr David';
+	person.friends.push({
 		name: 'leonie'
 	});
-	personMoldy.friends.push({
+	person.friends.push({
 		name: 'max'
 	});
-	personMoldy.friends.push({
+	person.friends.push({
 		name: 'david'
 	});
-	personMoldy.$save(function (_error) {
+	person.$save(function (_error) {
 		if (_error) {
 			return _done(_error);
 		}
-		var newPersonMoldy = new Moldy('person', schema);
+		var newPersonMoldy = Moldy.extend('person', schema);
 		newPersonMoldy.$get({
 			id: key
-		}, function (_error) {
-			newPersonMoldy.id.should.equal(key);
-			newPersonMoldy.friends.splice(1, 1);
-			newPersonMoldy.$save(function (_error) {
+		}, function (_error, newPerson) {
+			newPerson[0].id.should.equal(key);
+			newPerson[0].friends.splice(1, 1);
+			newPerson[0].$save(function (_error) {
 				if (_error) {
 					return _done(_error);
 				}
-				var newNewPersonMoldy = new Moldy('person', schema);
+				var newNewPersonMoldy = Moldy.extend('person', schema);
 				newNewPersonMoldy.$get({
 					id: key
-				}, function (_error) {
-					newNewPersonMoldy.friends.should.have.a.lengthOf(2);
-					newNewPersonMoldy.friends[1].name.should.equal('david');
+				}, function (_error, _newNewPersonMoldy) {
+					_newNewPersonMoldy[0].friends.should.have.a.lengthOf(2);
+					_newNewPersonMoldy[0].friends[1].name.should.equal('david');
 					_done();
 				});
 			});
@@ -213,7 +217,7 @@ schema = {
 should `destroy` all the models.
 
 ```js
-var personMoldy = new Moldy('person', schema);
+var personMoldy = Moldy.extend('person', schema);
 personMoldy.$collection(function (_error, _guys) {
 	_guys.length.should.be.greaterThan(0);
 	var deleteGuy = function (_guy) {
@@ -221,14 +225,14 @@ personMoldy.$collection(function (_error, _guys) {
 			if (_guys.length === 0) {
 				return _done();
 			}
-			var guy = new Moldy('person', schema);
+			var guy = Moldy.extend('person', schema);
 			guy.$get({
 				id: _guys[0].id
-			}, function (_error) {
+			}, function (_error, _guy) {
 				if (_error) {
 					return _done(_error);
 				}
-				guy.$destroy(function (_error) {
+				_guy[0].$destroy(function (_error) {
 					if (_error) {
 						return _done(_error);
 					}

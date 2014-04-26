@@ -35,7 +35,7 @@ describe('get', function () {
 	});
 
 	it('should create a new person so we can `get` it next', function (_done) {
-		var personMoldy = new Moldy('person', schema);
+		var personMoldy = Moldy.extend('person', schema).create();
 
 		personMoldy.name = 'Mr David';
 
@@ -56,16 +56,17 @@ describe('get', function () {
 	});
 
 	it('should `get` by a `id` from the previous example', function (_done) {
-		var personMoldy = new Moldy('person', schema);
-
+		var personMoldy = Moldy.extend('person', schema);
 
 		personMoldy.$get({
 			id: newPersonId
-		}, function (_error, david) {
+		}, function (_error, _david) {
 
 			if (_error) {
 				return _done(_error);
 			}
+
+			var david = _david[0];
 
 			david.name.should.eql('Mr David');
 			david.friends.should.be.an.Array.and.have.a.lengthOf(2);

@@ -22,7 +22,7 @@ describe('destroy', function () {
 	});
 
 	it('should `destroy` all the models', function (_done) {
-		var personMoldy = new Moldy('person', schema);
+		var personMoldy = Moldy.extend('person', schema);
 
 		personMoldy.$collection(function (_error, _guys) {
 
@@ -36,15 +36,15 @@ describe('destroy', function () {
 						return _done();
 					}
 
-					var guy = new Moldy('person', schema);
+					var guy = Moldy.extend('person', schema);
 
 					guy.$get({
 						id: _guys[0].id
-					}, function (_error) {
+					}, function (_error, _guy) {
 						if (_error) {
 							return _done(_error);
 						}
-						guy.$destroy(function (_error) {
+						_guy[0].$destroy(function (_error) {
 							if (_error) {
 								return _done(_error);
 							}

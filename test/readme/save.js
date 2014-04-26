@@ -17,7 +17,10 @@ describe('save', function () {
 		schema = {
 			properties: {
 				name: 'string',
-				age: 'number',
+				age: {
+					type: 'number',
+					default: 0
+				},
 				friends: [{
 					keyless: true,
 					properties: {
@@ -36,53 +39,55 @@ describe('save', function () {
 	});
 
 	it('should `save` a model', function (_done) {
-		var personMoldy = new Moldy('person', schema);
+		var personMoldy = Moldy.extend('person', schema);
 
-		personMoldy.$get(function (_error) {
+		personMoldy.$get(function (_error, _person) {
 
 			if (_error) {
 				return _done(_error);
 			}
 
-			key = personMoldy.id;
-			personMoldy.name = 'Mr David';
-			personMoldy.friends.push({
+			var person = _person[0];
+
+			key = person.id;
+			person.name = 'Mr David';
+			person.friends.push({
 				name: 'leonie'
 			});
-			personMoldy.friends.push({
+			person.friends.push({
 				name: 'max'
 			});
-			personMoldy.friends.push({
+			person.friends.push({
 				name: 'david'
 			});
 
-			personMoldy.$save(function (_error) {
+			person.$save(function (_error) {
 
 				if (_error) {
 					return _done(_error);
 				}
 
-				var newPersonMoldy = new Moldy('person', schema);
+				var newPersonMoldy = Moldy.extend('person', schema);
 
 				newPersonMoldy.$get({
 					id: key
-				}, function (_error) {
+				}, function (_error, newPerson) {
 
-					newPersonMoldy.id.should.equal(key);
-					newPersonMoldy.friends.splice(1, 1);
+					newPerson[0].id.should.equal(key);
+					newPerson[0].friends.splice(1, 1);
 
-					newPersonMoldy.$save(function (_error) {
+					newPerson[0].$save(function (_error) {
 						if (_error) {
 							return _done(_error);
 						}
 
-						var newNewPersonMoldy = new Moldy('person', schema);
+						var newNewPersonMoldy = Moldy.extend('person', schema);
 
 						newNewPersonMoldy.$get({
 							id: key
-						}, function (_error) {
-							newNewPersonMoldy.friends.should.have.a.lengthOf(2);
-							newNewPersonMoldy.friends[1].name.should.equal('david');
+						}, function (_error, _newNewPersonMoldy) {
+							_newNewPersonMoldy[0].friends.should.have.a.lengthOf(2);
+							_newNewPersonMoldy[0].friends[1].name.should.equal('david');
 							_done();
 						});
 					});
