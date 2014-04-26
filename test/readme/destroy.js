@@ -5,6 +5,14 @@ describe('destroy', function () {
 	var guys,
 		schema;
 
+	before(function () {
+		Moldy.use(require('../../src'));
+	});
+
+	after(function () {
+		Moldy.useify.clear();
+	});
+
 	it('define a JSON schema', function () {
 		schema = {
 			properties: {

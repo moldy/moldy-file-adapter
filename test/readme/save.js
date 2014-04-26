@@ -5,6 +5,14 @@ describe('save', function () {
 	var schema,
 		key;
 
+	before(function () {
+		Moldy.use(require('../../src'));
+	});
+
+	after(function () {
+		Moldy.useify.clear();
+	});
+
 	it('create a schema', function () {
 		schema = {
 			properties: {

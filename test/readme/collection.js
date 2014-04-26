@@ -3,6 +3,14 @@ var Moldy = require('moldy'),
 
 describe('collection', function () {
 
+	before(function () {
+		Moldy.use(require('../../src'));
+	});
+
+	after(function () {
+		Moldy.useify.clear();
+	});
+
 	it('should `get` a `collection`', function (_done) {
 		var personMoldy = new Moldy('person', {
 			properties: {

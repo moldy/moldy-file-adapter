@@ -3,6 +3,14 @@ var Moldy = require('moldy'),
 
 describe('create', function () {
 
+	before(function () {
+		Moldy.use(require('../../src'));
+	});
+
+	after(function () {
+		Moldy.useify.clear();
+	});
+
 	it('should `create` by a property', function (_done) {
 		var personMoldy = new Moldy('person', {
 			properties: {

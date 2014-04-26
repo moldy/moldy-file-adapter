@@ -2,8 +2,6 @@ var Moldy = require('moldy'),
 	should = require('should'),
 	moldyFileAdapter = require('../src');
 
-Moldy.use(require('../src'));
-
 describe('moldy-file-adapter', function () {
 
 	it('Tell `Moldy` to use the `file` adapter', function () {
