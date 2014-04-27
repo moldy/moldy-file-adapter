@@ -1,7 +1,7 @@
 var Moldy = require('moldy'),
 	should = require('should');
 
-describe('collection', function () {
+describe('find', function () {
 
 	before(function () {
 		Moldy.use(require('../../src'));
@@ -11,7 +11,7 @@ describe('collection', function () {
 		Moldy.useify.clear();
 	});
 
-	it('should `get` a `collection`', function (_done) {
+	it('should get an array of models', function (_done) {
 		var personMoldy = Moldy.extend('person', {
 			properties: {
 				name: 'string',
@@ -19,7 +19,7 @@ describe('collection', function () {
 			}
 		});
 
-		personMoldy.$collection(function (_error, _people) {
+		personMoldy.$find(function (_error, _people) {
 
 			if (_error) {
 				return _done(_error);

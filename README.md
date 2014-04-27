@@ -2,7 +2,7 @@
    - [moldy-file-adapter](#moldy-file-adapter)
      - [create](#moldy-file-adapter-create)
      - [get](#moldy-file-adapter-get)
-     - [collection](#moldy-file-adapter-collection)
+     - [find](#moldy-file-adapter-find)
      - [save](#moldy-file-adapter-save)
      - [destroy](#moldy-file-adapter-destroy)
 <a name=""></a>
@@ -80,13 +80,13 @@ should `get` by a `id` from the previous example.
 
 ```js
 var personMoldy = Moldy.extend('person', schema);
-personMoldy.$get({
+personMoldy.$findOne({
 	id: newPersonId
 }, function (_error, _david) {
 	if (_error) {
 		return _done(_error);
 	}
-	var david = _david[0];
+	var david = _david;
 	david.name.should.eql('Mr David');
 	david.friends.should.be.an.Array.and.have.a.lengthOf(2);
 	david.friends[0].name.should.equal('leonie');
@@ -97,9 +97,9 @@ personMoldy.$get({
 });
 ```
 
-<a name="moldy-file-adapter-collection"></a>
-## collection
-should `get` a `collection`.
+<a name="moldy-file-adapter-find"></a>
+## find
+should get an array of models.
 
 ```js
 var personMoldy = Moldy.extend('person', {
@@ -108,7 +108,7 @@ var personMoldy = Moldy.extend('person', {
 		age: 'number'
 	}
 });
-personMoldy.$collection(function (_error, _people) {
+personMoldy.$find(function (_error, _people) {
 	if (_error) {
 		return _done(_error);
 	}
@@ -158,11 +158,11 @@ should `save` a model.
 
 ```js
 var personMoldy = Moldy.extend('person', schema);
-personMoldy.$get(function (_error, _person) {
+personMoldy.$findOne(function (_error, _person) {
 	if (_error) {
 		return _done(_error);
 	}
-	var person = _person[0];
+	var person = _person;
 	key = person.id;
 	person.name = 'Mr David';
 	person.friends.push({
@@ -179,21 +179,21 @@ personMoldy.$get(function (_error, _person) {
 			return _done(_error);
 		}
 		var newPersonMoldy = Moldy.extend('person', schema);
-		newPersonMoldy.$get({
+		newPersonMoldy.$findOne({
 			id: key
 		}, function (_error, newPerson) {
-			newPerson[0].id.should.equal(key);
-			newPerson[0].friends.splice(1, 1);
-			newPerson[0].$save(function (_error) {
+			newPerson.id.should.equal(key);
+			newPerson.friends.splice(1, 1);
+			newPerson.$save(function (_error) {
 				if (_error) {
 					return _done(_error);
 				}
 				var newNewPersonMoldy = Moldy.extend('person', schema);
-				newNewPersonMoldy.$get({
+				newNewPersonMoldy.$findOne({
 					id: key
 				}, function (_error, _newNewPersonMoldy) {
-					_newNewPersonMoldy[0].friends.should.have.a.lengthOf(2);
-					_newNewPersonMoldy[0].friends[1].name.should.equal('david');
+					_newNewPersonMoldy.friends.should.have.a.lengthOf(2);
+					_newNewPersonMoldy.friends[1].name.should.equal('david');
 					_done();
 				});
 			});
@@ -218,21 +218,21 @@ should `destroy` all the models.
 
 ```js
 var personMoldy = Moldy.extend('person', schema);
-personMoldy.$collection(function (_error, _guys) {
+personMoldy.$find(function (_error, _guys) {
 	_guys.length.should.be.greaterThan(0);
 	var deleteGuy = function (_guy) {
-		personMoldy.$collection(function (_error, _guys) {
+		personMoldy.$find(function (_error, _guys) {
 			if (_guys.length === 0) {
 				return _done();
 			}
 			var guy = Moldy.extend('person', schema);
-			guy.$get({
+			guy.$findOne({
 				id: _guys[0].id
 			}, function (_error, _guy) {
 				if (_error) {
 					return _done(_error);
 				}
-				_guy[0].$destroy(function (_error) {
+				_guy.$destroy(function (_error) {
 					if (_error) {
 						return _done(_error);
 					}

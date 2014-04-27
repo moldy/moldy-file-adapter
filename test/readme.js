@@ -9,8 +9,8 @@ describe('moldy-file-adapter', function () {
 	});
 
 	require('./readme/create');
-	require('./readme/get');
-	require('./readme/collection');
+	require('./readme/findOne');
+	require('./readme/find');
 	require('./readme/save');
 	require('./readme/destroy');
 

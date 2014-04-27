@@ -41,13 +41,13 @@ describe('save', function () {
 	it('should `save` a model', function (_done) {
 		var personMoldy = Moldy.extend('person', schema);
 
-		personMoldy.$get(function (_error, _person) {
+		personMoldy.$findOne(function (_error, _person) {
 
 			if (_error) {
 				return _done(_error);
 			}
 
-			var person = _person[0];
+			var person = _person;
 
 			key = person.id;
 			person.name = 'Mr David';
@@ -69,25 +69,25 @@ describe('save', function () {
 
 				var newPersonMoldy = Moldy.extend('person', schema);
 
-				newPersonMoldy.$get({
+				newPersonMoldy.$findOne({
 					id: key
 				}, function (_error, newPerson) {
 
-					newPerson[0].id.should.equal(key);
-					newPerson[0].friends.splice(1, 1);
+					newPerson.id.should.equal(key);
+					newPerson.friends.splice(1, 1);
 
-					newPerson[0].$save(function (_error) {
+					newPerson.$save(function (_error) {
 						if (_error) {
 							return _done(_error);
 						}
 
 						var newNewPersonMoldy = Moldy.extend('person', schema);
 
-						newNewPersonMoldy.$get({
+						newNewPersonMoldy.$findOne({
 							id: key
 						}, function (_error, _newNewPersonMoldy) {
-							_newNewPersonMoldy[0].friends.should.have.a.lengthOf(2);
-							_newNewPersonMoldy[0].friends[1].name.should.equal('david');
+							_newNewPersonMoldy.friends.should.have.a.lengthOf(2);
+							_newNewPersonMoldy.friends[1].name.should.equal('david');
 							_done();
 						});
 					});

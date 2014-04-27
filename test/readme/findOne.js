@@ -58,7 +58,7 @@ describe('get', function () {
 	it('should `get` by a `id` from the previous example', function (_done) {
 		var personMoldy = Moldy.extend('person', schema);
 
-		personMoldy.$get({
+		personMoldy.$findOne({
 			id: newPersonId
 		}, function (_error, _david) {
 
@@ -66,7 +66,7 @@ describe('get', function () {
 				return _done(_error);
 			}
 
-			var david = _david[0];
+			var david = _david;
 
 			david.name.should.eql('Mr David');
 			david.friends.should.be.an.Array.and.have.a.lengthOf(2);
