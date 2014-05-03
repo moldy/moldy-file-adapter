@@ -7,10 +7,6 @@ describe('create', function () {
 		Moldy.use(require('../../src'));
 	});
 
-	after(function () {
-		Moldy.useify.clear();
-	});
-
 	it('should `create` by a property', function (_done) {
 		var personMoldy = Moldy.extend('person', {
 			properties: {

@@ -7,10 +7,6 @@ describe('find', function () {
 		Moldy.use(require('../../src'));
 	});
 
-	after(function () {
-		Moldy.useify.clear();
-	});
-
 	it('should get an array of models', function (_done) {
 		var personMoldy = Moldy.extend('person', {
 			properties: {

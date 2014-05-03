@@ -1,4 +1,5 @@
 var async = require('async'),
+	baseAdapter = require('moldy-base-adapter'),
 	cast = require('sc-cast'),
 	fdb = require('file-db'),
 	fs = require('fs-extra'),
@@ -18,7 +19,7 @@ var swapKeys = function (_object, _oldKey, _newKey) {
 	}
 };
 
-module.exports = function (_model, _data, _method, _url, _callback) {
+var req = function (_model, _data, _method, _callback) {
 	var method = _method,
 		model = _model,
 		data = cast(_data, 'object', {});
@@ -121,3 +122,22 @@ module.exports = function (_model, _data, _method, _url, _callback) {
 	});
 
 }
+
+module.exports = baseAdapter.extend({
+	name: "file",
+	create: function (data, done) {
+		req(this, data, 'post', done);
+	},
+	findOne: function (query, done) {
+		req(this, query, 'get', done);
+	},
+	find: function (query, done) {
+		req(this, query, 'get', done);
+	},
+	save: function (data, done) {
+		req(this, data, 'put', done);
+	},
+	destroy: function (data, done) {
+		req(this, data, 'delete', done);
+	}
+});
